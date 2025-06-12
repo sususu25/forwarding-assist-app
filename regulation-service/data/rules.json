@@ -1,0 +1,22 @@
+[
+  {
+    "id": "rule-001",
+    "condition": "any(i.packaging == 'Skid' for i in items) and destination == 'USA'",
+    "message": "🇺🇸 미국행 화물은 Skid 포장 사용 시 제한될 수 있습니다."
+  },
+  {
+    "id": "rule-002",
+    "condition": "any('Lithium' in i.name for i in items)",
+    "message": "⚠️ 리튬 배터리는 항공 운송 제한 대상입니다."
+  },
+  {
+    "id": "rule-003",
+    "condition": "any(i.hscode == '850760' for i in items) and any(i.packaging != 'UN Box' for i in items)",
+    "message": "HS 850760 (리튬 배터리)는 UN Box 포장이 요구됩니다."
+  },
+  {
+    "id": "rule-004",
+    "condition": "sum(i.weight for i in items) > 20000 and destination == 'China'",
+    "message": "⚠️ 중국행 20톤 이상 화물은 세관 신고가 필요합니다."
+  }
+]

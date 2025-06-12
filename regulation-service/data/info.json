@@ -1,0 +1,89 @@
+{
+  "usa_general": {
+    "country": "USA",
+    "cargo_type": "general",
+    "required_documents": [
+      "Commercial Invoice",
+      "Packing List",
+      "Bill of Lading"
+    ],
+    "packaging_requirement": "No wooden packing allowed without ISPM15 treatment.",
+    "co_required": false,
+    "notes": "ISF filing required 24 hours before loading."
+  },
+  "japan_food": {
+    "country": "Japan",
+    "cargo_type": "food",
+    "required_documents": [
+      "Commercial Invoice",
+      "Packing List",
+      "Health Certificate"
+    ],
+    "packaging_requirement": "Label must include expiration date and storage condition.",
+    "co_required": true,
+    "notes": "Import permit required for some processed foods."
+  },
+  "dg": {
+    "country": "common",
+    "cargo_type": "dg",
+    "required_documents": [
+      "MSDS",
+      "Commercial Invoice",
+      "Packing List",
+      "Dangerous Goods Declaration"
+    ],
+    "packaging_requirement": "IATA/IMO 규정에 따른 분리포장 및 라벨링 필요",
+    "co_required": true,
+    "notes": "UN번호, CLASS, CAS 번호 필수. 일부 국가에서는 사전 승인이 필요함."
+  },
+  "reefer": {
+    "country": "common",
+    "cargo_type": "reefer",
+    "required_documents": [
+      "Commercial Invoice",
+      "Packing List",
+      "Temperature Declaration"
+    ],
+    "packaging_requirement": "제품에 따라 적정 온도(예: -18℃ 이하)를 유지할 수 있는 포장 필요",
+    "co_required": false,
+    "notes": "리퍼 컨테이너 내부 온도 설정과 운송 중 이탈 여부 모니터링 필수"
+  },
+  "battery": {
+    "country": "common",
+    "cargo_type": "battery",
+    "required_documents": [
+      "Commercial Invoice",
+      "Packing List",
+      "MSDS",
+      "Battery Safety Report"
+    ],
+    "packaging_requirement": "UN3480/81 등 리튬배터리 항공운송 제한. 육상/해상 시 포장에 유의.",
+    "co_required": true,
+    "notes": "화물에 따라 항공운송 불가. IATA DGR 챕터 2, 3 기준 확인 필요."
+  },
+  "germany_dg": {
+    "country": "Germany",
+    "cargo_type": "dg",
+    "required_documents": [
+      "Commercial Invoice",
+      "Packing List",
+      "MSDS",
+      "Dangerous Goods Declaration"
+    ],
+    "packaging_requirement": "독일 ADR 규정에 따른 분류 및 라벨 부착 필요",
+    "co_required": true,
+    "notes": "사전 EORI 등록 필수. 일부 품목은 TÜV 인증 요구됨."
+  },
+  "japan_reefer": {
+    "country": "Japan",
+    "cargo_type": "reefer",
+    "required_documents": [
+      "Commercial Invoice",
+      "Packing List",
+      "Temperature Declaration"
+    ],
+    "packaging_requirement": "수산물·육류 등은 수입검역대상으로 명확한 포장 및 온도 유지 기록 필요",
+    "co_required": false,
+    "notes": "검역 지연 시 보관료 발생 가능. 냉동 수산물은 사전 신고 권장."
+  }
+}

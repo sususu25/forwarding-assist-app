@@ -1,0 +1,71 @@
+############################
+#  Python                  #
+############################
+# 가상환경
+venv/
+.env/
+# 캐시 / 빌드
+__pycache__/
+*.py[cod]
+*.so
+*.egg*
+.Python
+build/
+develop-eggs/
+dist/
+.eggs/
+pip-wheel-metadata/
+# 테스트 결과
+htmlcov/
+coverage.*  # coverage.py
+*.cover
+*.py,cover
+# IDE 자동
+.mypy_cache/
+.pytest_cache/
+.dmypy.json
+.python-version
+
+############################
+#  Node / React            #
+############################
+node_modules/
+npm-debug.log*
+yarn-error.log*
+*.tsbuildinfo
+# CRA build 산출물
+build/
+# Next.js, Vite 같은 프론트 빌드
+out/
+dist/
+
+############################
+#  Editors / IDE           #
+############################
+# JetBrains / IntelliJ / PyCharm
+.idea/
+*.iml
+# VSCode
+.vscode/
+.history/
+# 운영체제
+.DS_Store
+Thumbs.db
+
+############################
+#  프로젝트 산출물          #
+############################
+# 생성된 PDF·문서
+*/output/**
+*.pdf
+
+# dotenv 등 민감 정보
+*.env
+*.env.*
+
+############################
+#  Docker                  #
+############################
+*.tar
+# Docker compose overrides
+docker-compose.override.yml
