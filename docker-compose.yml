@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  document-generator:
+    build:
+      context: ./document-generator-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./document-generator-service/output:/app/output
+    environment:
+      - DATABASE_URL=postgresql://doc_user:docpass@db:5432/doc_service_db
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  regulation-service:
+    build:
+      context: ./regulation-service
+    ports:
+      - "8001:8001"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+
+  error-check-service:
+    build:
+      context: ./error-check-service
+    ports:
+      - "8002:8002"
+    environment:
+      - RULES_URL=http://regulation-service:8001/rules
+    depends_on:
+      - regulation-service
+    networks:
+      - app-network
+
+  mongo-seed:
+    build:
+      context: ./regulation-service
+    command: python mongo_seed.py
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+    restart: 'no'
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=doc_user
+      - POSTGRES_PASSWORD=docpass
+      - POSTGRES_DB=doc_service_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U doc_user -d doc_service_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app-network
+
+  regulation-frontend:
+    build:
+      context: ./regulation-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - document-generator
+      - regulation-service
+      - error-check-service
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+  mongo_data:
+
+networks:
+  app-network:
+    driver: bridge

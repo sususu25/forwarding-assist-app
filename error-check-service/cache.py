@@ -1,7 +1,8 @@
 import requests
 import time
+import os
 
-RULES_URL = "http://localhost:9100/rules"
+RULES_URL = os.getenv("RULES_URL", "http://localhost:8001/rules")
 CACHE_TTL = 3600  # 1시간
 
 _cache = {"data": None, "ts": 0}

@@ -12,13 +12,18 @@ from utils.pdf_creator import generate_pdf
 # FastAPI APP & CORS 설정
 # ────────────────────────────────────────────────
 app = FastAPI()
+
+@app.on_event("startup")
+def on_startup():
+    init_db()
+
 app.add_middleware(                                        # <<< CORS 미들웨어
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # 프런트 포트
+    allow_origins=["*"],  # 모든 출처 허용으로 변경
     allow_methods=["*"],
     allow_headers=["*"],
 )
-init_db()
+# init_db() # 앱 시작 시 한번만 실행되도록 startup 이벤트로 이동
 
 # ────────────────────────────────────────────────
 # 1) PDF 생성 → DB 기록
@@ -31,7 +36,7 @@ async def create_pdf(payload: PdfRequest = Body(...)):
     doc = crud.create_document(
         db,
         file_name=Path(file_path).name,
-        doc_type="Packing List",
+        doc_type=payload.doc_type,
         exporter=payload.exporter,
         destination=payload.destination,
     )

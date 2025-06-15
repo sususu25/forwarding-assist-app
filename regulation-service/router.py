@@ -4,13 +4,15 @@ from schema import RegulationResponse
 from pymongo import MongoClient
 from pathlib import Path
 import json
+import os
 
 router = APIRouter()
 
 # ──────────────────────────────────
 #  MongoDB 연결  (forwarding DB)
 # ──────────────────────────────────
-client = MongoClient("mongodb://localhost:27017")
+MONGO_URL = os.getenv("MONGO_URL", "mongodb://localhost:27017")
+client = MongoClient(MONGO_URL)
 db = client["forwarding"]
 collection = db["regulations"]           # RegulationInfo 저장 컬렉션
 

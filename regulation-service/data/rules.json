@@ -1,22 +1,27 @@
 [
   {
-    "id": "rule-001",
-    "condition": "any(i.packaging == 'Skid' for i in items) and destination == 'USA'",
-    "message": "🇺🇸 미국행 화물은 Skid 포장 사용 시 제한될 수 있습니다."
+    "id": "USA_LITHIUM_BAN",
+    "condition": "destination == 'USA' and any('lithium' in item.get('name', '').lower() for item in items)",
+    "message": "리튬 배터리는 미국으로 항공 운송이 금지될 수 있습니다. (규칙 ID: USA_LITHIUM_BAN)"
   },
   {
-    "id": "rule-002",
-    "condition": "any('Lithium' in i.name for i in items)",
-    "message": "⚠️ 리튬 배터리는 항공 운송 제한 대상입니다."
+    "id": "JAPAN_FOOD_CERT",
+    "condition": "destination.upper() == 'JAPAN' and any('food' in item.get('name', '').lower() for item in items)",
+    "message": "일본으로 식품 수출 시, Health Certificate가 필요합니다. (규칙 ID: JAPAN_FOOD_CERT)"
   },
   {
-    "id": "rule-003",
-    "condition": "any(i.hscode == '850760' for i in items) and any(i.packaging != 'UN Box' for i in items)",
-    "message": "HS 850760 (리튬 배터리)는 UN Box 포장이 요구됩니다."
+    "id": "USA_LITHIUM_PACKAGING",
+    "condition": "destination == 'USA' and any('lithium' in item.get('name', '').lower() and item.get('packaging', '').lower() in ['skid', 'carton'] for item in items)",
+    "message": "미국행 리튬 배터리는 위험물 규정에 맞는 특수 포장(예: UN-spec packaging)이 필요합니다."
   },
   {
-    "id": "rule-004",
-    "condition": "sum(i.weight for i in items) > 20000 and destination == 'China'",
-    "message": "⚠️ 중국행 20톤 이상 화물은 세관 신고가 필요합니다."
+    "id": "WOOD_PACKAGING",
+    "condition": "hasattr(data, 'packaging') and data.packaging and 'wood' in data.packaging.lower()",
+    "message": "목재 포장(Wood Packaging)은 ISPM 15 규정에 따른 처리가 필요합니다. (규칙 ID: WOOD_PACKAGING)"
+  },
+  {
+    "id": "HEAVY_CARGO_CHINA",
+    "condition": "destination.upper() == 'CHINA' and sum(item.get('weight', 0) for item in items) > 20000",
+    "message": "중국행 20톤 이상 중량 화물은 추가 서류가 필요할 수 있습니다. (규칙 ID: HEAVY_CARGO_CHINA)"
   }
-]
+] 
