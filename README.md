@@ -1,5 +1,6 @@
 # forwarding-assist-app
 
-regulation-service:9100
-document-generator-service:9000
-error-check-service:9200
+regulation-service:8001
+document-generator-service:8000
+error-check-service:8002
+regulation-frontend: 3000
