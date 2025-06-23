@@ -81,4 +81,4 @@ jobs:
           else
             git commit -m "Update image tags to ${{ needs.build-and-push-to-ecr.outputs.image_tag }}"
             git push
-          fi 
+          fi   
