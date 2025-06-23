@@ -15,7 +15,7 @@ services:
         condition: service_healthy
     networks:
       - app-network
-
+       
   regulation-service:
     build:
       context: ./regulation-service
