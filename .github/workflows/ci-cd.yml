@@ -6,7 +6,6 @@ on:
       - main
 
 env:
-  ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
   AWS_REGION: ap-northeast-2
 
 jobs:
@@ -17,6 +16,7 @@ jobs:
       id-token: write
     outputs:
       tag: ${{ steps.image-tag.outputs.tag }}
+      registry: ${{ steps.login-ecr.outputs.registry }}
 
     steps:
       - name: Checkout
@@ -45,7 +45,7 @@ jobs:
         with:
           context: ./document-generator-service
           push: true
-          tags: ${{ env.ECR_REGISTRY }}/document-generator-service:${{ steps.image-tag.outputs.tag }}
+          tags: ${{ steps.login-ecr.outputs.registry }}/document-generator-service:${{ steps.image-tag.outputs.tag }}
 
       - name: Build, tag, and push image for regulation-service
         id: build-image-reg-service
@@ -53,7 +53,7 @@ jobs:
         with:
           context: ./regulation-service
           push: true
-          tags: ${{ env.ECR_REGISTRY }}/regulation-service:${{ steps.image-tag.outputs.tag }}
+          tags: ${{ steps.login-ecr.outputs.registry }}/regulation-service:${{ steps.image-tag.outputs.tag }}
 
       - name: Build, tag, and push image for error-check-service
         id: build-image-err-check
@@ -61,7 +61,7 @@ jobs:
         with:
           context: ./error-check-service
           push: true
-          tags: ${{ env.ECR_REGISTRY }}/error-check-service:${{ steps.image-tag.outputs.tag }}
+          tags: ${{ steps.login-ecr.outputs.registry }}/error-check-service:${{ steps.image-tag.outputs.tag }}
 
       - name: Build, tag, and push image for regulation-frontend
         id: build-image-reg-frontend
@@ -69,7 +69,7 @@ jobs:
         with:
           context: ./regulation-frontend
           push: true
-          tags: ${{ env.ECR_REGISTRY }}/regulation-frontend:${{ steps.image-tag.outputs.tag }}
+          tags: ${{ steps.login-ecr.outputs.registry }}/regulation-frontend:${{ steps.image-tag.outputs.tag }}
 
   update-manifest:
     runs-on: ubuntu-latest
@@ -87,11 +87,12 @@ jobs:
         run: |
           cd forwarding-assist-k8s-manifests
           IMAGE_TAG=${{ needs.build-and-push.outputs.tag }}
+          ECR_REGISTRY=${{ needs.build-and-push.outputs.registry }}
           
-          sed -i "s|image: .*/document-generator-service:.*|image: ${{ env.ECR_REGISTRY }}/document-generator-service:${IMAGE_TAG}|" document-generator-service/deployment.yaml
-          sed -i "s|image: .*/regulation-service:.*|image: ${{ env.ECR_REGISTRY }}/regulation-service:${IMAGE_TAG}|" regulation-service/deployment.yaml
-          sed -i "s|image: .*/error-check-service:.*|image: ${{ env.ECR_REGISTRY }}/error-check-service:${IMAGE_TAG}|" error-check-service/deployment.yaml
-          sed -i "s|image: .*/regulation-frontend:.*|image: ${{ env.ECR_REGISTRY }}/regulation-frontend:${IMAGE_TAG}|" regulation-frontend/deployment.yaml
+          sed -i "s|image: .*/document-generator-service:.*|image: ${ECR_REGISTRY}/document-generator-service:${IMAGE_TAG}|" document-generator-service/deployment.yaml
+          sed -i "s|image: .*/regulation-service:.*|image: ${ECR_REGISTRY}/regulation-service:${IMAGE_TAG}|" regulation-service/deployment.yaml
+          sed -i "s|image: .*/error-check-service:.*|image: ${ECR_REGISTRY}/error-check-service:${IMAGE_TAG}|" error-check-service/deployment.yaml
+          sed -i "s|image: .*/regulation-frontend:.*|image: ${ECR_REGISTRY}/regulation-frontend:${IMAGE_TAG}|" regulation-frontend/deployment.yaml
 
       - name: Commit and push changes
         run: |
