@@ -46,6 +46,8 @@ jobs:
           context: ./document-generator-service
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/document-generator-service:${{ steps.image-tag.outputs.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Build, tag, and push image for regulation-service
         id: build-image-reg-service
@@ -54,6 +56,8 @@ jobs:
           context: ./regulation-service
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/regulation-service:${{ steps.image-tag.outputs.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Build, tag, and push image for error-check-service
         id: build-image-err-check
@@ -62,6 +66,8 @@ jobs:
           context: ./error-check-service
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/error-check-service:${{ steps.image-tag.outputs.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Build, tag, and push image for regulation-frontend
         id: build-image-reg-frontend
@@ -70,6 +76,8 @@ jobs:
           context: ./regulation-frontend
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/regulation-frontend:${{ steps.image-tag.outputs.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   update-manifest:
     runs-on: ubuntu-latest
