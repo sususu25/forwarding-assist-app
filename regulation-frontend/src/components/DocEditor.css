@@ -1,0 +1,142 @@
+/* ───────── DocEditor 공통 래퍼 ───────── */
+.editor-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #1a1a1a;
+}
+
+.editor-wrap h1 {
+  font-size: 28px;
+  margin-bottom: 24px;
+  color: #2c3e50;
+  border-left: 5px solid #1e7fe6;
+  padding-left: 12px;
+}
+
+/* 각 Label(입력 줄) */
+.editor-wrap label {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  gap: 12px;
+  font-weight: 500;
+}
+
+.editor-wrap input,
+.editor-wrap select {
+  flex: 0 0 280px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.editor-wrap textarea {
+  flex: 0 0 360px;
+  padding: 6px 10px;
+  resize: vertical;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* ───────── Item 테이블 ───────── */
+.item-box {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.item-box table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.item-box th,
+.item-box td {
+  border: 1px solid #ddd;
+  padding: 6px 8px;
+  text-align: left;
+}
+
+.item-box th {
+  background: #f1f5f9;
+  font-weight: 600;
+}
+
+.item-box table input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.add-row {
+  margin-top: 10px;
+  background: #f4f4f4;
+  border: 1px solid #ccc;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 13px;
+  border-radius: 4px;
+}
+
+/* ───────── 저장 버튼 ───────── */
+.save-btn,
+.warn-btn {
+  margin-top: 16px;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.save-btn {
+  background-color: #1e7fe6;
+  color: #fff;
+}
+
+.warn-btn {
+  background-color: #ffe4e1;
+  color: #d8000c;
+  border: 1px solid #ffa6a6;
+}
+
+/* ───────── 위반 메시지 ───────── */
+.violation-box {
+  margin-top: 20px;
+  padding: 12px;
+  border-left: 4px solid #e74c3c;
+  background: #fff1f0;
+  color: #c0392b;
+  font-size: 14px;
+  list-style: none;
+}
+
+.violation-box li {
+  margin-bottom: 4px;
+}
+
+/* 버튼 hover */
+.save-btn:hover {
+  background-color: #0d6efd;
+}
+.warn-btn:hover {
+  background-color: #ffdad8;
+}
+
+.bottom-img { position:absolute; bottom:16px; right:16px; width:160px; opacity:.9; }
+
+.error {
+  background: #ffe6e6;
+}
+
+.error-field {
+  border-color: #ff4d4d;
+  background: #fff0f0;
+}
