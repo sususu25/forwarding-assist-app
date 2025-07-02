@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: document-generator-service
-        image: %ECR_REPO_URI%/document-generator-service:latest # ECR 이미지 URI
+        image: 521607973210.dkr.ecr.ap-northeast-2.amazonaws.com/document-generator-service:latest # ECR 이미지 URI
         ports:
         - containerPort: 8000
         envFrom:
