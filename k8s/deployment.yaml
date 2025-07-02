@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: document-generator-deployment
+  labels:
+    app: document-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: document-generator
+  template:
+    metadata:
+      labels:
+        app: document-generator
+    spec:
+      containers:
+      - name: document-generator-service
+        image: %ECR_REPO_URI%/document-generator-service:latest # ECR 이미지 URI
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - secretRef:
+            name: db-credentials 
