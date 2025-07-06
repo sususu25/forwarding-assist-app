@@ -1,7 +1,7 @@
 import os
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
-from urllib.parse import quote_plus
+from sqlalchemy.engine import URL
 
 # DB 접속 정보 환경 변수에서 읽기
 DB_USER = os.getenv("DB_USER")
@@ -10,13 +10,18 @@ DB_HOST = os.getenv("DB_HOST")
 DB_PORT = os.getenv("DB_PORT")
 DB_NAME = os.getenv("DB_NAME")
 
-# 비밀번호에 특수문자가 있을 경우를 대비해 URL 인코딩
-encoded_password = quote_plus(DB_PASSWORD)
+# DATABASE_URL을 직접 조립하는 대신, SQLAlchemy에 연결 정보를 직접 전달합니다.
+# 이 방법이 특수문자를 포함한 비밀번호를 가장 안전하게 처리합니다.
+db_url = URL.create(
+    drivername="postgresql+psycopg2",
+    username=DB_USER,
+    password=DB_PASSWORD,
+    host=DB_HOST,
+    port=DB_PORT,
+    database=DB_NAME,
+)
 
-# DB 접속 URL 구성: postgresql://username:password@host:port/dbname
-DATABASE_URL = f"postgresql://{DB_USER}:{encoded_password}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-
-engine = create_engine(DATABASE_URL)
+engine = create_engine(db_url)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 from .models import Base
@@ -29,4 +34,5 @@ def init_db():
     else:
         print("테이블이 이미 존재합니다.")
 
-print("🧪 DATABASE_URL =", f"postgresql://{DB_USER}:********@{DB_HOST}:{DB_PORT}/{DB_NAME}")
+# 로그에는 비밀번호를 제외하고 출력합니다.
+print("🧪 DB Connection Info =", f"postgresql://{DB_USER}:********@{DB_HOST}:{DB_PORT}/{DB_NAME}")
