@@ -1,18 +1,22 @@
 
 # Forwarding Assist App
 
-![Project Banner](./regulation-frontend/public/assets/Checklist.jpg)
-
 ## 📖 프로젝트 소개
 
 Forwarding Assist App은 국제 무역 및 물류 프로세스를 자동화하고 간소화하여 포워딩 업무를 효율적으로 처리할 수 있도록 돕는 웹 애플리케이션입니다. 사용자는 이 애플리케이션을 통해 필요한 서류를 생성하고, 규제 사항을 확인하며, 잠재적인 오류를 사전에 검사할 수 있습니다.
 
 ## ✨ 주요 기능
 
-- **자동 문서 생성**: 상업 송장(Commercial Invoice), 포장 명세서(Packing List) 등 필수적인 무역 서류를 자동으로 생성합니다.
 - **규제 정보 확인**: 각 국가 및 품목에 따른 규제 및 제한 사항을 실시간으로 조회할 수 있습니다.
 - **오류 사전 검증**: 서류 작성 시 발생할 수 있는 오류나 불일치 항목을 사전에 검증하여 리스크를 최소화합니다.
+- **자동 문서 생성**: 상업 송장(Commercial Invoice), 포장 명세서(Packing List) 등 필수적인 무역 서류를 자동으로 생성합니다.
 - **직관적인 UI**: 사용자가 손쉽게 데이터를 입력하고 문서를 관리할 수 있는 편리한 인터페이스를 제공합니다.
+
+### Regulation Lookup
+![Regulation Lookup](./screenshots/regulation-lookup.png)
+
+### Document Generator & Error Check
+![Document Generator](./screenshots/doc-generator.png)
 
 ## 🛠️ 기술 스택 및 아키텍처
 
@@ -69,7 +73,4 @@ Forwarding Assist App은 국제 무역 및 물류 프로세스를 자동화하�
 - **Frontend**: `3000`
 - **Document Generator Service**: `8000`
 - **Regulation Service**: `8001`
-- **Error Check Service**: `8002`
-
----
-
+- **Error Check Service**: `
