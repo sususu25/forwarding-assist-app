@@ -1,6 +1,11 @@
 
 # Forwarding Assist App
 
+[🇰🇷 한국어](./README.md#korean) - [🇺🇸 English](./README.md#english)
+
+---
+<a name="korean"></a>
+
 ## 📖 프로젝트 소개
 
 Forwarding Assist App은 국제 무역 및 물류 프로세스를 자동화하고 간소화하여 포워딩 업무를 효율적으로 처리할 수 있도록 돕는 웹 애플리케이션입니다. 사용자는 이 애플리케이션을 통해 필요한 서류를 생성하고, 규제 사항을 확인하며, 잠재적인 오류를 사전에 검사할 수 있습니다.
@@ -69,6 +74,85 @@ Forwarding Assist App은 국제 무역 및 물류 프로세스를 자동화하�
 ## ⚙️ 포트 정보
 
 각 서비스는 다음 포트를 사용합니다.
+
+- **Frontend**: `3000`
+- **Document Generator Service**: `8000`
+- **Regulation Service**: `8001`
+- **Error Check Service**: `8002`
+
+---
+<a name="english"></a>
+
+# Forwarding Assist App (English Version)
+
+## 📖 About The Project
+
+The Forwarding Assist App is a web application designed to streamline and automate international trade and logistics processes, helping to handle forwarding tasks more efficiently. Users can generate necessary documents, check regulations, and pre-validate potential errors through this application.
+
+## ✨ Key Features
+
+- **Regulation Check**: Look up regulations and restrictions for each country and item in real-time.
+- **Error Pre-validation**: Minimize risks by validating potential errors or discrepancies in documents before they are finalized.
+- **Automatic Document Generation**: Automatically create essential trade documents such as Commercial Invoices and Packing Lists.
+- **Intuitive UI**: Provides a user-friendly interface for easy data entry and document management.
+
+### Regulation Lookup
+![Regulation Lookup](./screenshots/regulation-lookup.png)
+
+### Document Generator & Error Check
+![Document Generator](./screenshots/doc-generator.png)
+
+## 🛠️ Tech Stack & Architecture
+
+This project is based on a Microservice Architecture (MSA), allowing each service to be developed and deployed independently.
+
+```
+/
+├── docker-compose.yml
+├── document-generator-service/ (Python, FastAPI, PostgreSQL)
+├── error-check-service/ (Python, FastAPI)
+├── regulation-service/ (Python, FastAPI, MongoDB)
+└── regulation-frontend/ (React)
+```
+
+- **Backend**: Python, FastAPI
+- **Frontend**: React.js
+- **Database**: PostgreSQL, MongoDB
+- **Infrastructure**: Docker, Docker Compose
+
+### Service Details
+
+- `document-generator-service`: Generates trade documents in PDF format based on templates and user input.
+- `regulation-service`: Manages trade regulation and legal data for various countries and provides it via an API.
+- `error-check-service`: Validates documents for errors based on data from the `regulation-service`.
+- `regulation-frontend`: A Single Page Application (SPA) based on React that provides the user interface for all services.
+
+## 🚀 Getting Started
+
+To run this project in your local environment, you need to have [Docker](https://www.docker.com/get-started) installed.
+
+1.  **Clone the project**
+
+    ```bash
+    git clone https://github.com/your-username/forwarding-assist-app.git
+    cd forwarding-assist-app
+    ```
+
+2.  **Run Docker Compose**
+
+    Execute the following command in the project root directory to run all services.
+
+    ```bash
+    docker-compose up --build
+    ```
+
+3.  **Access the application**
+
+    Once the build is complete, you can access the application by navigating to `http://localhost:3000` in your web browser.
+
+## ⚙️ Port Information
+
+Each service uses the following ports:
 
 - **Frontend**: `3000`
 - **Document Generator Service**: `8000`
