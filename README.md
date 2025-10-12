@@ -73,4 +73,4 @@ Forwarding Assist App은 국제 무역 및 물류 프로세스를 자동화하�
 - **Frontend**: `3000`
 - **Document Generator Service**: `8000`
 - **Regulation Service**: `8001`
-- **Error Check Service**: `
+- **Error Check Service**: `8002`
