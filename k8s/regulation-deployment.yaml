@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: regulation-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: regulation-service
+  template:
+    metadata:
+      labels:
+        app: regulation-service
+    spec:
+      containers:
+        - name: regulation-service
+          image: sususu25/regulation-service:1.0 # Docker Hub 이미지 주소로 변경
+          ports:
+            - containerPort: 8001
+          env:
+            - name: MONGO_URL
+              value: "mongodb://mongo:27017"
