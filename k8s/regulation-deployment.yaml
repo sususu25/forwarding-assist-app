@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: regulation-service
-          image: sususu25/regulation-service:1.0 # Docker Hub 이미지 주소로 변경
+          image: yeonsupark/regulation-service:1.0 # Docker Hub 이미지 주소로 변경
           ports:
             - containerPort: 8001
           env:
