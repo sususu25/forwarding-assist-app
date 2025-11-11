@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: error-check-service
+spec:
+  selector:
+    app: error-check-service
+  ports:
+    - protocol: TCP
+      port: 8002
+      targetPort: 8002

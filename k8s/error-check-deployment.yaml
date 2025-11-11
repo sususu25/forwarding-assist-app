@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: error-check-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: error-check-service
+  template:
+    metadata:
+      labels:
+        app: error-check-service
+    spec:
+      containers:
+        - name: error-check-service
+          image: yeonsupark/error-check-service:1.0 # 나중에 채울 이미지 주소
+          ports:
+            - containerPort: 8002
+          env:
+            - name: RULES_URL
+              value: "http://regulation-service:8001/rules"
